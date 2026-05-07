@@ -6,16 +6,13 @@ export default function LikeButton() {
   const [liked, setLiked] = useState(false)
 
   return (
-    <button 
+    <button
       onClick={() => setLiked(!liked)}
-      style={{ 
-        marginTop: '0.5rem',
-        padding: '0.3rem 1rem',
-        cursor: 'pointer',
-        background: 'none',
-        border: '1px solid #ccc',
-        borderRadius: '4px'
-      }}
+      className={`px-4 py-1 rounded-full text-sm border transition cursor-pointer ${
+        liked
+          ? 'bg-red-50 border-red-300 text-red-500'
+          : 'bg-gray-50 border-gray-200 text-gray-500 hover:border-gray-300'
+      }`}
     >
       {liked ? '❤️ Liked' : '🤍 Like'}
     </button>

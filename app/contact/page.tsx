@@ -1,16 +1,36 @@
-export default async function BlogPage() {
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
-  const posts = await response.json()
-
+export default function ContactPage() {
   return (
-    <main style={{ padding: '2rem' }}>
-      <h1>Blog</h1>
-      {posts.map((post: { id: number; title: string; body: string }) => (
-        <div key={post.id} style={{ borderBottom: '1px solid #eee', padding: '1rem 0' }}>
-          <h2 style={{ fontSize: '1rem' }}>{post.title}</h2>
-          <p style={{ color: '#666' }}>{post.body}</p>
+    <main>
+      <div className="bg-white p-8 rounded-lg border border-gray-200 max-w-lg">
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">Contact</h1>
+        <p className="text-gray-500 leading-relaxed mb-6">
+          Feel free to reach out. I am always open to new opportunities 
+          and collaborations.
+        </p>
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
+            <span className="text-gray-400">📧</span>
+            <div>
+              <p className="text-sm text-gray-400">Email</p>
+              <p className="text-gray-700 font-medium">hello@example.com</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
+            <span className="text-gray-400">🐙</span>
+            <div>
+              <p className="text-sm text-gray-400">GitHub</p>
+              <p className="text-gray-700 font-medium">github.com/yourusername</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
+            <span className="text-gray-400">💼</span>
+            <div>
+              <p className="text-sm text-gray-400">LinkedIn</p>
+              <p className="text-gray-700 font-medium">linkedin.com/in/yourusername</p>
+            </div>
+          </div>
         </div>
-      ))}
+      </div>
     </main>
   )
 }
