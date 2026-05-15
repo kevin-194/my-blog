@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { createClient } from '../lib/supabase'
 
 export default function NavLink({ href, label }: { href: string; label: string }) {
   const pathname = usePathname()

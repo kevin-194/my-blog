@@ -1,28 +1,22 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { createServerSupabaseClient } from '../../lib/supabase-server'
 
 type Props = {
   params: Promise<{ id: string }>
 }
 
-export async function generateStaticParams() {
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-  const posts = await response.json()
-
-  return posts.map((post: { id: number }) => ({
-    id: String(post.id)
-  }))
-}
-
 export default async function BlogPostPage({ params }: Props) {
   const { id } = await params
+  const supabase = await createServerSupabaseClient()
 
-  const response = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${id}`
-  )
-  const post = await response.json()
+  const { data: post, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('id', id)
+    .single()
 
-  if (!post.title) {
+  if (error || !post) {
     notFound()
   }
 
@@ -36,6 +30,9 @@ export default async function BlogPostPage({ params }: Props) {
       </Link>
 
       <div className="bg-white p-8 rounded-lg border border-gray-200">
+        <p className="text-xs text-gray-400 mb-3">
+          {new Date(post.created_at).toLocaleDateString()}
+        </p>
         <h1 className="text-2xl font-bold text-gray-800 mb-4">
           {post.title}
         </h1>
